@@ -1,0 +1,29 @@
+defaults:
+  requestSize: 1 KB
+  responseSize: 1 KB
+  numReplicas: 1
+services:
+- isEntrypoint: true
+  name: svc-d
+  namespace: ns-d
+  script:
+  - - call: svc-d1
+    - call: svc-d2
+- name: svc-d1
+  namespace: ns-d
+  script:
+  - - call: svc-d11
+    - call: svc-d12
+- name: svc-d2
+  namespace: ns-d
+  script:
+  - - call: svc-d21
+    - call: svc-d22
+- name: svc-d11
+  namespace: ns-d
+- name: svc-d12
+  namespace: ns-d
+- name: svc-d21
+  namespace: ns-d
+- name: svc-d22
+  namespace: ns-d

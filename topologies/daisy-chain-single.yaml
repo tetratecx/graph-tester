@@ -1,0 +1,20 @@
+defaults:
+  requestSize: 1 KB
+  responseSize: 1 KB
+  numReplicas: 1
+services:
+- isEntrypoint: true
+  name: svc-c
+  namespace: ns-c
+  script:
+  - call: svc-c1
+- name: svc-c1
+  namespace: ns-c
+  script:
+  - call: svc-c2
+- name: svc-c2
+  namespace: ns-c
+  script:
+  - call: svc-c3
+- name: svc-c3
+  namespace: ns-c
