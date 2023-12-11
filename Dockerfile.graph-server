@@ -1,4 +1,4 @@
 FROM gcr.io/tetrate-internal-containers/tetrate-base:v0.5
 ARG TARGETARCH
-ADD build/bin/linux/${TARGETARCH}/graph-server /usr/local/bin/server
+ADD build/bin/graph-server-static-linux-${TARGETARCH} /usr/local/bin/server
 ENTRYPOINT [ "/usr/local/bin/server" ]

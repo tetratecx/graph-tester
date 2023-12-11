@@ -1,22 +1,51 @@
-# Isotope
+# Graph Tester
 
-Isotope (**is**ti**o** **to**pology **pe**rformance) benchmarks Istio against
-various service graph topologies.
+Graph Tester, inspired by [Isotope](https://github.com/istio/tools/tree/master/isotope) (**is**ti**o** **to**pology **pe**rformance) allows one to generate and deploy
+micro-service demos with various service graph topologies.
 
 ## Repository Structure
 
-| Item                          | Role                                              |
-|-------------------------------|---------------------------------------------------|
-| example-topologies/           | Examples of topology configurations               |
-| [convert/](convert/README.md) | Go command to convert topologies to other formats |
-| [service/](service/README.md) | Go command to run as a node in the service graph  |
-| run_tests.py                  | CLI to run tests against topologies               |
-| [runner/](runner/README.md)   | Python module used by `run_tests.py`              |
-| create_tree_topology.py       | Python script to create a hierarchical topology   |
+| Item                                     | Explanation                                       |
+|------------------------------------------|---------------------------------------------------|
+| topologies/                              | Examples of topology configurations               |
+| [cmd/generator](cmd/generator/README.md) | Go command to convert topologies to other formats |
+| [cmd/server](cmd/server/README.md)       | Go command to run as a node in the service graph  |
 
-## Topology Converter
+## Topology Generator
 
-The topology converter, located under the convert/ directory, is a Go Utility for simulating real world microservice topologies in Kubernetes.  The converter accepts a yaml file which describes one or more microservices as a workflow graph (ie service A waits 100 ms, then calls services B and C in parallel, each of which return a 1MB payload, etc).  `converter kubernetes` processes a yaml file, producing kubernetes manifests, as described below.  `converter graphviz` produces a visualization of your microservice architecture specified in service-graph.yaml.
+The topology generator, located under the `cmd/generator/` directory, is a Go Utility for simulating real world microservice topologies in Kubernetes.  The converter accepts a yaml file which describes one or more microservices as a workflow graph (ie service A waits 100 ms, then calls services B and C in parallel, each of which return a 1MB payload, etc).  `graph-generator kubernetes` processes a yaml file, producing kubernetes manifests, as described below.  `graph-generator graphviz` produces a visualization of your microservice architecture specified in service-graph.yaml.
+
+To build and run the generator:
+
+```bash
+$ make build-generator
+Building graph-tester generator
+
+$ tree build/
+build/
+└── bin
+    └── linux
+        └── amd64
+            └── graph-generator
+$ ./build/bin/linux/amd64/graph-generator
+Converts a service graph expressed in YAML to various formats
+
+Usage:
+  graph-generator [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  kubernetes  Convert service graph YAML to manifests for performance testing
+
+Flags:
+  -h, --help   help for graph-generator
+
+Use "graph-generator [command] --help" for more information about a command.
+
+```
+
+
 
 ### service-graph.yaml
 
