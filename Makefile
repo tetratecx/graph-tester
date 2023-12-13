@@ -26,6 +26,10 @@ RELEASE_REPO ?= tetratecx/graph-tester
 
 all: build-generator-multi build-server-multi ## Build the generator and server for multiple platforms
 
+test: ## Run golang tests
+	@echo "Running tests"
+	@go test -v ./... ;
+
 build-generator: ## Build the generator
 	@echo "Building graph-tester generator"
 	@CGO_ENABLED=0 GOARCH=${TARGETARCH} GOOS=${TARGETOS} go build -ldflags '-w -extldflags "-static"' -o ${BUILD_DIR}/${GENERATOR_BINARY_PREFIX}-$(GOOS)-$(GOARCH) ./cmd/generator
